@@ -1,1 +1,7 @@
-<h1> <%= content %> </h1>
+<h1>Welcome to the blog</h1>
+
+<% posts.forEach((post) => { %>
+  <h2> <%= post.blogTitle %> </h2>
+  <p> <%= post.blogContent.slice(0,100) %>... </p>
+  <a href="/blog/<%= post.blogTitle %>">Read More</a>
+<% }) %>
