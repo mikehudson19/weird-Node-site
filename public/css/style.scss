@@ -37,3 +37,17 @@
     margin-top: 0.8rem;
   }
 }
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__list {
+    list-style: none;
+    margin-top: 1rem;
+  }
+  &__item {
+    display: flex;
+
+  }
+}

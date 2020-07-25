@@ -1,0 +1,15 @@
+<div class="tasks">
+<form class="tasks__form" action="/tasks" method="POST">
+  <input type="text" name="task" autofocus autocomplete="off" />
+  <button type="submit">+</button>
+</form>
+<ul class="tasks__list">
+  <% tasks.forEach((task) => { %>
+    <div class="tasks__item">
+      <input type="checkbox" name="" id="">
+      <li><%= task %></li>
+    </div>
+  <% }) %> 
+</ul>
+</div>
+
