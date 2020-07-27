@@ -25,6 +25,12 @@
   grid-template-rows: 2fr 1fr;
   text-align: center;
   padding-top: 1rem;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    align-items: center;
+  }
   &__list {
     display: flex;
     list-style: none;

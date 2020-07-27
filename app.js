@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
+const https = require('https');
+require('dotenv').config();
+
 
 app = express();
 app.use(bodyParser.urlencoded({extended : true}));
@@ -39,6 +42,54 @@ app.get('/blog/:blogTitle', (req, res) => {
   })
 })
 
+app.get('/about', (req, res) => {
+  res.render('about');
+} )
+
+app.get('/weather', (req, res) => {
+  res.render('weather');
+})
+
+app.post('/weather', (req, res) => {
+  const apiKey = process.env.W_API_KEY;
+  const city = req.body.city;
+  console.log(city);
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+
+
+
+  https.get(url, (response) => {
+    response.on('data', (d) => {
+      const jsonData = JSON.parse(d);
+      const description = jsonData.weather[0].description;
+      const temp = jsonData.main.temp;
+      res.render('weatherResult', {description : description, city : city, temp : temp});
+  
+    });
+  })
+})
+
+app.post('/', (req, res) => {
+  const apiKey = process.env.MC_API_KEY;
+  const audienceId = process.env.MC_AUD_ID;
+  const url = `https://us10.api.mailchimp.com/3.0/lists/${AUD_ID}`;
+  const options = {
+    auth: `michael:${apiKey}`,
+    method: 'POST'
+  }
+  const data = {
+    name: req.body.name,
+    email: req.body.email
+  }
+  const jsonData = JSON.parse(data);
+  console.log(req.body);
+  https.request(url, options, (res => {
+    res.on('data', (d) => {
+      console.log(d);
+    })
+  }));
+})
+
 app.post('/compose', (req, res) => {
   const post = {
     blogTitle: req.body.title,
@@ -59,5 +110,4 @@ app.post('/tasks', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => { console.log('Server is running on port 3000...' )})
-
 
